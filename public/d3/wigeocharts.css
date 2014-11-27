@@ -1,0 +1,162 @@
+/* wigeocharts.css */
+
+			/* Change this to change axis style */
+        .axis path,
+				.axis line {
+				  fill: none;
+				  stroke: #000;
+				  shape-rendering: crispEdges;
+				}
+			
+			/*
+			 Change this for title text
+			*/
+			 .charttitle {
+			 		font-size:18px;
+					font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+					vertical-align: middle;
+					text-align: center;
+			}
+			
+			/* in case of lines without data change the base color */
+				.line {
+				  fill: none;
+				  stroke: steelblue;
+				  stroke-width: 1.5px;
+				}
+				
+			/* in case of bars without data change the base color */
+				.bar {
+					fill: steelblue;
+				}
+			
+			/* Change this to set circle behaviour */	
+				.circle {
+				  fill: rgb(31, 119, 180);
+				  fill-opacity: .25;
+				  stroke: rgb(31, 119, 180);
+				  stroke-width: 1px;
+				}
+			
+				
+			/* Change this for Chord diagrams */
+			.chord path {
+			  fill-opacity: .67;
+			  stroke: #000;
+			  stroke-width: .5px;
+			}
+			
+			/* Change this to set the font in all charts */
+				text {
+				  font: 10px sans-serif;
+				}
+				
+			/* Change this for grids */
+			.grid path,
+			.grid line {
+			  fill: none;
+			  stroke: rgba(0, 0, 0, 0.15);
+			  shape-rendering: crispEdges;
+			}
+			
+			/* Change this for Maps  */
+			.map {
+				overflow: none !important;
+			}
+			.country {
+				fill: #aaaaaa;
+				fill-opacity: 1;
+				stroke: #ffffff;
+				stroke-width: 0px;
+			}
+			
+			.mapbackground {
+				fill: #bdd3ef;
+			}
+			
+			.graticule {
+				  fill: none;
+				  stroke: #ccc;
+				  stroke-width: .5px;
+				}
+				
+			.foreground {
+			  fill: none;
+			  stroke: #ccc;
+			  stroke-width: 1px;
+			}
+				
+
+			/* Change this for tooltip style */
+			/*
+				#charttooltip {
+					position: absolute;
+					display: block;
+					z-index: 10000;
+					overflow: auto;
+					border:0px solid black;
+					background-color:rgba(0,0,0,0.8);
+					margin:auto;
+					padding:3px 5px 3px 5px;
+					color:white;
+					font-size:10px;
+					font-family:arial;
+					border-radius: 5px;
+					vertical-align: middle;
+					text-align: center;
+					min-width:50px;
+				}
+				*/
+				
+			/* Tip related */
+				  .d3-tip {
+					    line-height: 1.5;
+					    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+					    font-weight: bold;
+					    font-size:10px;
+					    padding: 10px;
+					    background: rgba(0, 0, 0, 0.8);
+					    color: #ffffff;
+					    border-radius: 5px;
+					    text-align: center;
+					  }
+					  
+					 /* Change this for the value color in the tooltip */
+					.d3-tip .valuecolor {
+						color: #ffff00;
+					}
+				
+				  .d3-tip:after {
+				    box-sizing: border-box;
+				    display: inline;
+				    font-size: 10px;
+				    width: 100%;
+				    line-height: 1;
+				    color: rgba(0, 0, 0, 0.8);
+				    content: "\25BC";
+				    position: absolute;
+				    text-align: center;
+				  }
+				
+				  .d3-tip.n:after {
+				    margin: -1px 0 0 0;
+				    top: 100%;
+				    left: 0;
+				  }
+				
+				  .d3-tip span {
+				    color: #ff00c7;
+				  }
+				  
+				  rect:hover {
+				    fill-opacity: 0.5;
+				  }
+				  path:hover {
+				    fill-opacity: 0.5;
+				  }
+				  line:hover {
+				    fill-opacity: 0.5;
+				  }
+				  circle:hover {
+				    fill-opacity: 0.5;
+				  }
