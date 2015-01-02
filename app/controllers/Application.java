@@ -5,6 +5,7 @@ import play.mvc.*;
 import views.html.*;
 import play.data.Form;
 import java.util.List;
+import java.util.ArrayList;
 
 import play.api.libs.json.*;
 import java.sql.Connection;
@@ -15,8 +16,10 @@ import java.sql.SQLException;
 
 public class Application extends Controller {
 
-    static String a;
+    static List<String> a;
+
     public static Result index() {
+        a =  new ArrayList<String>();
         query("jdbc:postgresql://83.212.116.51:5432/athens","maria","maria");
         return ok(index.render(a));
     }
@@ -24,13 +27,47 @@ public class Application extends Controller {
     private static void query(String url, String user, String pwd) {
         try {
             Connection con = DriverManager.getConnection(url, user, pwd);
-            String stm = "SELECT  json_stops()";
+            String stm = "SELECT  trips_per_route()";
             PreparedStatement pst = con.prepareStatement(stm);
             ResultSet rs = pst.executeQuery();
             rs.next();
-            a = rs.getObject(1).toString();
-            //a = Json.parse(o);
-            //System.out.println(a);
+            a.add(rs.getObject(1).toString());
+            stm = "SELECT  stops_per_route()";
+            pst = con.prepareStatement(stm);
+            rs = pst.executeQuery();
+            rs.next();
+            a.add(rs.getObject(1).toString());
+            stm = "SELECT  duration_per_route()";
+            pst = con.prepareStatement(stm);
+            rs = pst.executeQuery();
+            rs.next();
+            a.add(rs.getObject(1).toString());
+            stm = "SELECT  distance_per_route_deg()";
+            pst = con.prepareStatement(stm);
+            rs = pst.executeQuery();
+            rs.next();
+            a.add(rs.getObject(1).toString());
+            stm = "SELECT  distance_per_route()";
+            pst = con.prepareStatement(stm);
+            rs = pst.executeQuery();
+            rs.next();
+            a.add(rs.getObject(1).toString());
+            stm = "SELECT  distance_per_route_abs()";
+            pst = con.prepareStatement(stm);
+            rs = pst.executeQuery();
+            rs.next();
+            a.add(rs.getObject(1).toString());
+            stm = "SELECT  trips_per_stop()";
+            pst = con.prepareStatement(stm);
+            rs = pst.executeQuery();
+            rs.next();
+            a.add(rs.getObject(1).toString());
+            stm = "SELECT  routes_per_stop()";
+            pst = con.prepareStatement(stm);
+            rs = pst.executeQuery();
+            rs.next();
+            a.add(rs.getObject(1).toString());
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }

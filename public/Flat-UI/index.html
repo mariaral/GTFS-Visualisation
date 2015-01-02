@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Flat UI Free</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Loading Bootstrap -->
+        <link href="dist/css/vendor/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Loading Flat UI -->
+        <link href="dist/css/flat-ui.css" rel="stylesheet">
+
+        <link rel="shortcut icon" href="dist/img/favicon.ico">
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-inverse" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-5">
+                    <span class="sr-only">Toggle navigation</span>
+                </button>
+                <a class="navbar-brand" href="#">GTFS Visualisation</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-collapse-5">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">City:</a></li>
+                    <li>
+                        <select data-toggle="select" multiple class="form-control multiselect multiselect-danger mrs mbm">
+                            <option value="0">Paris</option>
+                            <option value="1">Portland</option>
+                            <option value="2" selected>Athens</option>
+                        </select>
+                    </li>
+                    <li><a href='#'>Graph Type:</a></li>
+                    <li>
+                        <select data-toggle="select" class="form-control select select-danger mrs mbm">
+                            <option value="0">My Profile here is</option>
+                            <option value="1">My Friends</option>
+                            <option value="2">My Profile</option>
+                            <option value="3">My Friends</option>
+                        </select>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+
+        <div class="container">
+
+            <!-- Main component for a primary marketing message or call to action -->
+            <div class="jumbotron">
+
+                <h1>Navbar example</h1>
+                <p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
+                <p>To see the difference between static and fixed top navbars, just scroll.</p>
+            </div>
+
+            <center>
+                <div class="pagination pagination-danger">
+                    <a href="#" class="btn btn-danger previous">Previous</a>
+                    <ul>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                    </ul>
+                    <a href="#" class="btn btn-danger next">Next</a>
+                </div>
+            </center>
+
+        </div> <!-- /container -->
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="dist/js/vendor/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="dist/js/flat-ui.min.js"></script>
+
+        <script src="docs/assets/js/application.js"></script>
+
+    </body>
+</html>

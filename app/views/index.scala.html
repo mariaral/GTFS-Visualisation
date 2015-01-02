@@ -1,14 +1,10 @@
 @import play.api.libs.json.JsValue
-@(data: String)
+@(data: List[String])
 
 <!DOCTYPE html>
-
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <!--
-            Guitar Template is provided by www.tooplate.com
-        -->
         <title>GTFS Visualize</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
@@ -24,68 +20,95 @@
         <script src="@routes.Assets.at("d3/d3.v3.min.js")"></script>
         <script src="@routes.Assets.at("d3/wigeocharts.min.js")"></script>
         <link href="@routes.Assets.at("d3/wigeocharts.css")" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Loading Bootstrap -->
+        <link href="@routes.Assets.at("Flat-UI/dist/css/vendor/bootstrap.min.css")" rel="stylesheet">
+        <!-- Loading Flat UI -->
+        <link href="@routes.Assets.at("Flat-UI/dist/css/flat-ui.css")" rel="stylesheet">
+        <link rel="shortcut icon" href="@routes.Assets.at("Flat-UI/dist/img/favicon.ico")">
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="@routes.Assets.at("Flat-UI/dist/js/vendor/jquery.min.js")"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="@routes.Assets.at("Flat-UI/dist/js/flat-ui.min.js")"></script>
+        <script src="@routes.Assets.at("Flat-UI/docs/assets/js/application.js")"></script>
 
         <script type="text/javascript">
 function init() {
-    // Data we use
-    var data = @Html(data);
 
-    // Configuration (optional)
     var mycfg = {
         titel: "Age",
         innerRadius: 100
     }
+    var i = 0;
+    @for(res <- data) {
+        var data1 = @Html(res);
+        wggChart.makeDonut("donutchart"+i++,data1,mycfg);
+    }
 
-    // Create the chart 
-    wggChart.makeDonut("donutchart",data,mycfg);
 };
+
+function myFunction() {
+    var e = document.getElementById("city");
+    var strUser = e.options[e.selectedIndex].value;
+    alert (strUser);
+};
+
         </script>
     </head>
+
     <body onload="init();">
 
-        <div id="slider">
-            <div id="tooplate_wrapper">
-
-                <div id="tooplate_sidebar">
-
-                    <div id="header">
-                        <h1>Choose GTFS view</h1>
-                    </div>    
-
-                    <div id="menu">
-                        <ul class="navigation">
-                            <li><a href="#rps" class="selected menu_01">Routes per stop</a></li>
-                            <li><a href="#tpr" class="menu_02">Trips per Route</a></li>
-                        </ul>
-                    </div>
-                </div> <!-- end of sidebar -->
-
-                <div id="content">
-                    <div class="scroll">
-                        <div class="scrollContainer">
-
-                            <div class="panel" id="rps">
-                                <h1>Routes per Stop</h1>
-                                <div id="donutchart" style="width:400px; height:400px;"></div>
-                            </div> <!-- end of rps -->
-
-                            <div class="panel" id="tpr">
-                                <h1>Trips per Route</h1>
-                            </div> <!-- end of tpr -->
-                            <div class="col_380 float_r">
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <!-- end of scroll -->
+        <nav class="navbar navbar-inverse" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-5">
+                    <span class="sr-only">Toggle navigation</span>
+                </button>
+                <a class="navbar-brand" href="#">GTFS Visualisation</a>
             </div>
-            <div class="cleaner"></div>
-        </div> <!-- end of content -->
-        <div class="cleaner"></div>
-        </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbar-collapse-5">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <select id="stat" onchange="myFunction()" data-toggle="select" class="form-control select select-danger mrs mbm">
+                            <option value="0">Routes per Stop</option>
+                            <option value="1">Portland</option>
+                            <option value="2" selected>Athens</option>
+                        </select>
+                    </li>
+                    <li><a href="#">City:</a></li>
+                    <li>
+                        <select id="city" onchange="myFunction()" data-toggle="select" multiple class="form-control multiselect multiselect-danger mrs mbm">
+                            <option value="0">Paris</option>
+                            <option value="1">Portland</option>
+                            <option value="2" selected>Athens</option>
+                        </select>
+                    </li>
+                    <li><a href='#'>Graph Type:</a></li>
+                    <li>
+                        <select id="graph" onchange="myFunction()" data-toggle="select" class="form-control select select-danger mrs mbm">
+                            <option value="0">Donut</option>
+                            <option value="1">Pie</option>
+                            <option value="2">My Profile</option>
+                            <option value="3">My Friends</option>
+                        </select>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
 
+        <div class="container">
+            <div class="jumbotron" style="background-color:rgba(255,255,255,0.7)">
+                <center>
+                    <div id="donutchart0" style="width:400px; height:400px;"></div>
+                    <h5 id="city_name0"></h5>
+                    <div></div>
+                    <h5 id="city_name1"></h5>
+                    <div></div>
+                    <h5 id="city_name2"></h5>
+                </center>
+            </div>
+        </div> 
 
     </body>
 </html>
