@@ -20,7 +20,10 @@ public class Application extends Controller {
 
     public static Result index() {
         a =  new ArrayList<String>();
-        query("jdbc:postgresql://83.212.116.51:5432/athens","maria","maria");
+        query("jdbc:postgresql://localhost:5432/athens","maria","maria");
+        query("jdbc:postgresql://localhost:5432/paris","maria","maria");
+        query("jdbc:postgresql://localhost:5432/portland","maria","maria");
+        System.out.println(a.toString());
         return ok(index.render(a));
     }
 
@@ -67,7 +70,7 @@ public class Application extends Controller {
             rs = pst.executeQuery();
             rs.next();
             a.add(rs.getObject(1).toString());
-            
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

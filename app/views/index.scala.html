@@ -1,5 +1,5 @@
 @import play.api.libs.json.JsValue
-@(data: List[String])
+@(alldata: List[String])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,30 +33,59 @@
         <script src="@routes.Assets.at("Flat-UI/docs/assets/js/application.js")"></script>
 
         <script type="text/javascript">
-function init() {
 
-    var mycfg = {
-        titel: "Age",
-        innerRadius: 100
-    }
-    var i = 0;
-    @for(res <- data) {
-        var data1 = @Html(res);
-        wggChart.makeDonut("donutchart"+i++,data1,mycfg);
-    }
 
-};
+function myRefresh() {
 
-function myFunction() {
+    var city_name = ["Athens", "Paris", "Portland"];
+    var city = [false,false,false];
+    var stat = [false,false,false,false,false,false,false,false];
     var e = document.getElementById("city");
-    var strUser = e.options[e.selectedIndex].value;
-    alert (strUser);
-};
+    var opt;
+    for (var i=0, len=e.options.length; i<len; i++) {
+        opt = e.options[i];
+        if ( opt.selected ) {
+            city[i] = true;
+            document.getElementById("city"+i).innerHTML =  '<div id="chart'+i+'" style="width:360px; height:400px;"/>';
+        } else {
+            document.getElementById("city"+i).innerHTML = "";
+        }
+    }
+    e = document.getElementById("stat");
+    for (i=0, len=e.options.length; i<len; i++) {
+        opt = e.options[i];
+        if ( opt.selected ) {
+            stat[i] = true;
+        }
+    }
 
+    var i = 0;
+    @for(d <- alldata) {
+        var data = @Html(d);
+        if ((stat[i%8])&&(city[Math.floor(i/8)])) {
+            var mycfg = {
+                title: city_name[Math.floor(i/8)],
+                description: "",
+                measure: ""
+            };
+            var e = document.getElementById("graph");
+            var t = e.options[e.selectedIndex].value;
+            if(t==0) {
+                wggChart.makeBar("chart"+Math.floor(i/8),data,mycfg);
+            } else if(t==1) {
+                wggChart.makePie("chart"+Math.floor(i/8),data,mycfg);
+            } else {
+                wggChart.makeDonut("chart"+Math.floor(i/8),data,mycfg);
+            }
+        }
+        i++;
+    }
+};
         </script>
+
     </head>
 
-    <body onload="init();">
+    <body onload="myRefresh()">
 
         <nav class="navbar navbar-inverse" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -70,27 +99,31 @@ function myFunction() {
             <div class="collapse navbar-collapse" id="navbar-collapse-5">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <select id="stat" onchange="myFunction()" data-toggle="select" class="form-control select select-danger mrs mbm">
-                            <option value="0">Routes per Stop</option>
-                            <option value="1">Portland</option>
-                            <option value="2" selected>Athens</option>
+                        <select id="stat" onchange="myRefresh()" data-toggle="select" class="form-control select select-danger mrs mbm">
+                            <option value="0">Trips per Route</option>
+                            <option value="1">Stops per Route</option>
+                            <option value="2">Duration per Route</option>
+                            <option value="3">Distance per Route(degrees)</option>
+                            <option value="4">Distance per Route(km)</option>
+                            <option value="5">Absolute distance per Route </option>
+                            <option value="6">Trips per Stop</option>
+                            <option value="7">Routes per Stop</option>
                         </select>
                     </li>
                     <li><a href="#">City:</a></li>
                     <li>
-                        <select id="city" onchange="myFunction()" data-toggle="select" multiple class="form-control multiselect multiselect-danger mrs mbm">
-                            <option value="0">Paris</option>
-                            <option value="1">Portland</option>
-                            <option value="2" selected>Athens</option>
+                        <select id="city" onchange="myRefresh()" data-toggle="select" multiple class="form-control multiselect multiselect-danger mrs mbm">
+                            <option value="0">Athens</option>
+                            <option value="1">Paris</option>
+                            <option value="2">Portland</option>
                         </select>
                     </li>
                     <li><a href='#'>Graph Type:</a></li>
                     <li>
-                        <select id="graph" onchange="myFunction()" data-toggle="select" class="form-control select select-danger mrs mbm">
-                            <option value="0">Donut</option>
+                        <select id="graph" onchange="myRefresh()" data-toggle="select" class="form-control select select-danger mrs mbm">
+                            <option value="0">Bar</option>
                             <option value="1">Pie</option>
-                            <option value="2">My Profile</option>
-                            <option value="3">My Friends</option>
+                            <option value="2">Donut</option>
                         </select>
                     </li>
                 </ul>
@@ -100,12 +133,13 @@ function myFunction() {
         <div class="container">
             <div class="jumbotron" style="background-color:rgba(255,255,255,0.7)">
                 <center>
-                    <div id="donutchart0" style="width:400px; height:400px;"></div>
-                    <h5 id="city_name0"></h5>
-                    <div></div>
-                    <h5 id="city_name1"></h5>
-                    <div></div>
-                    <h5 id="city_name2"></h5>
+                    <table>
+                        <tr>
+                            <td id = "city0"></td>
+                            <td id = "city1"></td>
+                            <td id = "city2"></td>
+                        </tr>
+                    </table>
                 </center>
             </div>
         </div> 
